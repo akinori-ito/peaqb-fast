@@ -1,0 +1,106 @@
+	PEAQ - Perceptual Evaluation Audio Quality - version 1.0.beta:
+	       by Giuseppe Gottardi 'oveRet' <gottardi@ailinux.org>	
+
+
+An introduction
+===============
+
+Audio quality is one of the key factors when designing a digital system for broadcasting.
+The rapid introduction of various bit-rate reduction schemes has led to significant efforts
+in establishing and refining procedures for subjective assessments, simply because formal
+listening tests have been the only relevant method for judging audio quality.
+The experience gained was the foundation for Recommendation ITU-R BS.1116, which then
+became the basis for most listening tests of this type.
+Since subjective quality assessments are both time consuming and expensive, it is desirable
+to develop an objective measurement method in order to produce an estimate of the audio
+quality.
+
+Traditional objective measurement methods, like Signal-to-Noise-Ratio (S/N) or
+Total-Harmonic-Distortion (THD) have never really been shown to relate reliably to the
+perceived audio quality. The problems become even more evident when the methods are applied
+on modern codecs which are both non-linear and non-stationary.
+A number of methods for making objective perceptual measurements of perceived audio quality
+have been introduced during the last decade. But none of the methods were thoroughly
+validated, and consequently neither standardized nor widely accepted. In 1994, ITU-R
+identified an urgent need to establish a standard in this area and the work was initiated.
+An open call for proposals was issued and the following six candidates for measurement
+methods were received: Disturbance Index (DIX), Noise-to-Mask Ratio (NMR), Perceptual Audio
+Quality Measure (PAQM), Perceptual Evaluation (PERCEVAL), Perceptual Objective Measure (POM)
+and The Toolbox Approach.
+
+The measurement method in this Recommendation is the result of a process where the
+performance of each of the above six methods was studied, and the most promising tools
+extracted and integrated into one single method. The recommended method has been carefully
+validated at a number of test sites. It has proven to generate both reliable and useful
+information for several applications. One must, however, keep in mind that the objective
+measurement method in this Recommendation is not generally a substitute for arranging a
+formal listening test.
+
+
+How PEAQ works
+==============
+
+The test items were selected from Database 3 (DB3), which was used for the validation of
+the models. To simplify testing, a subset of the 84 items of DB3 was selected.
+This subset consists of 16 items. The major criterion for the selection was that the
+resulting MOVs and DI (Distortion Index) values cover a broad range.
+
+The test items are available from the ITU-R as WAV-files (Microsoft RIFF format) on a CD-ROM.
+All items were sampled at 48 kHz, 16-bit PCM. The reference and test signals as provided by
+the ITU are already time and level adapted to each other, so that no additional gain or delay
+compensation is required.
+The measurement algorithm must be adjusted to a listening level of 92 dB SPL.
+
+In order to conform to the Recommendation, the calculated DI values must reproduce the values
+given in Tables 22 and 23, with a tolerance of less than 0.02 for all test items.
+If an implementation does not produce results within this tolerance it does not conform to
+this Recommendation.
+
+Example:
+
+# ./peaqb
+usage: ./peaqb <option>
+     -r  reffile[:lp] (lp default = 92)
+     -t  testfile[:lp] (lp default = 92)
+     -h  print this help
+
+# ./peaqb -r grefcla.wav -t gcodcla.wav
+
+ PEAQb Algorithm. Coded by Giuseppe Gottardi <gottardi@ailinux.org>
+
+Ref File grefcla.wav
+  - Sample Rate: 48000
+  - Number Of Channel: 2
+  - Bits for Sample: 16
+  - Level Pression: 92
+
+
+Test File gcodcla.wav
+  - Sample Rate: 48000
+  - Number Of Channel: 2
+  - Bits for Sample: 16
+  - Level Pression: 92
+
+
+frame: 1
+BandwidthRefb: 787
+BandwidthTestb: 646.5
+TotalNMRb -19.5803
+WinModDiff1b: 0
+ADBb: 0
+EHSb: 0.231185
+AvgModDiff1b: 0
+AvgModDiff2b 0
+RmsNoiseLoudb: 0
+MFPDb: 0.00202244
+RelDistFramesb: 0
+DI: 2.89072
+ODG: -0.000979518
+
+...
+
+
+
+NB
+Instead of peaq binary you can launch bash scripting file 'testall' that select all wave 
+files contained in specified directory.

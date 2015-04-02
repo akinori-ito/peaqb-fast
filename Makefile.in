@@ -1,0 +1,54 @@
+# $Id: Makefile.in,v 1.0 2003/05/21 19:01:10 oveRet Exp $
+
+SHELL=	 @SHELL@
+MISSLIBS=@MISSLIBS@
+FFTDIRS= threads mpi fftw
+PEAQDIR= ./src
+BUILD=   ./Build
+OPTIONS= $(CONFIG) $(FLAGS)
+
+all: PEAQ
+	@if [ "$(MISSLIBS)" != "" ]; \
+	then \
+	(for x in $(FFTDIRS); \
+	do \
+		(cd $$x; echo Making $@ in:; pwd; \
+		$(SHELL) $(BUILD) $(OPTIONS)); \
+	done); \
+	fi
+	@cd $(PEAQDIR); echo Making $@ in:; pwd; \
+	make;
+	@echo
+	@echo done.
+
+clean: PEAQ
+	@if [ "$(MISSLIBS)" != "" ]; \
+	then \
+	(for x in $(FFTDIRS); \
+	do \
+		(cd $$x; echo Making $@ in:; pwd; \
+		$(SHELL) $(BUILD) $(OPTIONS) $@); \
+	done); \
+	fi
+	@cd $(PEAQDIR); echo Making $@ in:; pwd; \
+	make $@;
+
+install: PEAQ
+	@cd $(PEAQDIR); echo Making $@ in:; pwd; \
+	make $@;
+
+fresh: PEAQ
+	@for x in $(FFTDIRS); \
+	do \
+		(cd $$x; echo Making $@ in:; pwd; \
+		$(SHELL) $(BUILD) $(OPTIONS) -c); \
+	done
+
+$(FFTDIRS): PEAQ
+	@cd $@; pwd; \
+	$(SHELL) $(BUILD) $(OPTIONS)
+$(PEAQDIR): PEAQ
+	@cd $@; pwd; \
+	$(SHELL) $(BUILD) $(OPTIONS)
+
+PEAQ:
