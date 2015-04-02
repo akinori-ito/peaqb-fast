@@ -1,0 +1,8 @@
+# peaqb-fast
+peaqb-fast: The faster version of peaqb
+Akinori Ito, 2 April, 2015
+
+This is the patched version of peaqb written by G. Gottardi 'oveRet'. 
+The basic functionalty of this program is almost same as that of the original peaqb, except the calculation speed. Only one improvement is -c option, which tells peaqb to output the result in the CSV format.
+
+
